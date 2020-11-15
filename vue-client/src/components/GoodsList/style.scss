@@ -1,0 +1,66 @@
+$color:#b532e9;
+
+ul {
+  .goods-item {
+    display: flex;
+    height: 6.8rem;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eee;
+    &:last-child { border-bottom: none; }
+    .left-img {
+      flex-basis: 30%;
+      img {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 2px 8px #f0f1f2;
+      }
+    }
+    .right-txt {
+      flex: 1;
+      padding-left: 1rem;
+      width: 0;
+      .goods-name {
+        margin-bottom: 1rem;
+        font-size: 14px;
+        line-height: 1.5;
+        overflow: hidden;
+        white-space: nowrap;  
+        text-overflow: ellipsis; 
+      }
+      .goods-num {
+        .price {
+          color: $color;
+          font-weight: 700;
+          margin-right: .5rem;
+        }
+        .orl-price {
+          text-decoration: line-through;
+          font-size: 13px;
+        }
+      }
+    }
+    .order-goods-count {
+      flex-basis: 10%;
+      display: flex;
+      align-items: center;
+      color: $color;
+    }
+    .delete-btn {
+      flex-basis: 10%;
+      display: flex;
+      .delete-icon {
+        margin: auto;
+        font-size: 1.3rem;
+        color: #f00808;
+      }
+    }
+  }
+  .load-more {
+    text-align: center;
+    height: 20vw;
+    line-height: 20vw;
+    font-size: 14px;
+    color: #999;
+  }
+}
