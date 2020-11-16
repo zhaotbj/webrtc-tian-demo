@@ -10,21 +10,29 @@ picture.height = 240;
 // 获取音频
 var audioplayer = document.querySelector("audio#audioplayer");
 var constraints = document.querySelector("div#constraints");
+
+var recvideo = document.querySelector("video#recplayer");
+var btnRecord = document.querySelector("button#record");
+var btnPlay = document.querySelector("button#recplay");
+var btnDownload = document.querySelector("button#download");
+var buffer;
+var mediaRecorder;
 function gotMediaStream(stream) {
     console.log(stream)
      videoplay.srcObject = stream;  //设置视频流
-    //  获取视频约束
+     window.stream = stream;
+     //  获取视频约束
     var videoTrack = stream.getVideoTracks()[0];
     var videoConstraints = videoTrack.getSettings();
     constraints.textContent = JSON.stringify(videoConstraints); //打印在页面上
-   
+    
     // audioplayer.srcObject = stream; // 只设置音频
     return navigator.mediaDevices.enumerateDevices();
     // promise返回 then 后接口 then
 }
 
 function gotDevices(deviceInfos) {
-    var vConsole = new VConsole();
+    // var vConsole = new VConsole();
     console.log(JSON.stringify(deviceInfos))
     deviceInfos.forEach(deviceInfo => {
             var option = document.createElement("option");
@@ -43,7 +51,7 @@ function handleError(err) {
     console.log(err)
 }
 
-
+// 
 function start() {
     if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         console.log("不支持");
@@ -88,6 +96,63 @@ filterSelect.onchange = function() {
 snapshot.onclick = function (){
     picture.className = filterSelect.value; // 设置滤镜
     picture.getContext("2d").drawImage(videoplay, 0, 0, picture.width, picture.height);
-    
+}
+function handleDataAvailable(e) {
+    if(e && e.data && e.data.size>0) {
+        buffer.push(e.data);
+    }
+}
+// 开始
+ function startRecord(){
+     buffer = [];
+     var options = {
+        mimeType: 'video/webm;codecs=vp8'
+     }
+     if(!MediaRecorder.isTypeSupported(options.mimeType)) {
+         console.error(`${options.mimeType}不支持`)
+     }
+    try {
+        mediaRecorder = new MediaRecorder(window.stream, options);
+    } catch (error) {
+        console.error("创建失败了", error);
+        return
+    }
+    mediaRecorder.ondataavailable = handleDataAvailable;
+    mediaRecorder.start(10); // 切片
+ }
+ function stopRecord(){
+    mediaRecorder.stop();
+ }
+// 开始录制
+btnRecord.onclick = ()=>{
+    if(btnRecord.textContent==='Start Record') {
+        startRecord();
+        btnRecord.textContent = 'Stop Record';
+        btnPlay.disabled = true;
+        btnDownload.disabled = true;
+    } else {
+        stopRecord();
+        btnRecord.textContent = 'Start Record';
+        btnPlay.disabled = false;
+        btnDownload.disabled = false;
+    }
+}
+// 播放
+btnPlay.onclick = ()=>{
+    var blob = new Blob(buffer, {type: "video/webm"});
+    recvideo.src = window.URL.createObjectURL(blob);
+    recvideo.srcObject = null;
+    recvideo.controls = true;
+    recvideo.play();
+}
+// 下载
+btnDownload.onclick = ()=> {
+    var blob = new Blob(buffer, {type: "video/webm"});
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.style.display = 'none';
+    a.download = 'text.webm';
+    a.click();
 }
 // https://localhost:3000/mediastream.html

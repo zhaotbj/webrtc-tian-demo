@@ -1,6 +1,7 @@
 if(!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
     console.log("不支持 enumerateDevices")
 } else {
+    // 获取视频设备
     navigator.mediaDevices.enumerateDevices()
     .then(gotDevices).catch(err=>{
         console.log(err);
