@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            display: flex;
+        }
+        .box video{
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button id="start">start</button>
+        <button id="call">call</button>
+        <button id="hangup">结束</button>
+    </div>
+    <div class="box">
+        <div>
+            <h2>local:</h2>
+        <video id="localvideo" autoplay playsinline></video>
+        <h2>offer SDP:</h2>
+        <textarea name="" id="offer" cols="30" rows="10"></textarea>
+        </div>
+        
+        <div>
+            <h2>Remote:</h2>
+            <video id="remotevideo" autoplay playsinline></video>
+            <h2>answer Sdp:</h2>
+            <textarea name="" id="answer" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    
+    
+    
+    <script src="../js/adapter.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
