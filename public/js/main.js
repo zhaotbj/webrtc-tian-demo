@@ -62,8 +62,8 @@ function call(){
         pc1.addTrack(track, localStream);
     })
     var offerOptions = {
-        offerToRecieveAudio: 0,
-        offerToRecieveVideo: 1
+        offerToReceiveAudio: 0,
+        offerToReceiveVideo: 1
     }
     // 媒体协商
     pc1.createOffer(offerOptions)
