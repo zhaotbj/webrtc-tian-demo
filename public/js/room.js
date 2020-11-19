@@ -68,7 +68,7 @@ function connSignalServer() {
 // 连接sockit
 function coon() {
   console.log("coon")
-  socket = io.connect('https://localhost:3000');
+  socket = io.connect();
   // 新用户加入
   socket.on("joined", (roomid, id) => {
     console.log("收到---joined", roomid, id);
