@@ -2,6 +2,7 @@ var btnConn = document.querySelector("button#connserver");
 var btnLeave = document.querySelector("button#leave");
 var localVideo = document.querySelector("video#localvideo");
 var remoteVideo = document.querySelector("video#remotevideo");
+var remotevideoBox = document.getElementById("remotevideoBox");
 var localStream;
 var socket = null;
 // var _roomid = '111111';
@@ -50,7 +51,11 @@ function start() {
   } else {
     var constraints = {
       video: true,
-      audio: false,
+      audio: {
+        channelCount:1, //单声道
+        noiseSuppression: true, //降噪
+        echoCancellation: true   // 回音消除
+    }
     };
     navigator.mediaDevices
       .getUserMedia(constraints)
@@ -203,13 +208,24 @@ function createPeerConnecion() {
     // 远端走ontrack
     pc.ontrack = (e) => {
       // 设置给远端 显示远端流
-      remoteVideo.srcObject = e.streams[0];
+      // remoteVideo.srcObject = e.streams[0];
+      console.log('远端流',e);
+        let video = document.createElement('video');
+            video.controls = true;
+            video.autoplay = 'autoplay';
+            video.srcObject = e.streams[0];
+            // video.id = v.ele;
+            video.className = 'col-md-4';
+            console.log('-createElement--', video);
+            remotevideoBox.append(video);
     }
   }
 
   // 当连接在了，给本地设置 加到pc中音频和视频的媒体流
   if (localStream) {
     localStream.getTracks().forEach((track) => {
+      // 
+      console.log('加到pc中音频和视频的媒体流');
       pc.addTrack(track);
     })
   }
