@@ -1,6 +1,6 @@
 ## 学习笔记
 ## 音视频WebRTC实时互动直播技术入门与实战
-git地址：https://github.com/zhaotbj/webrtc-demo/tree/master
+git地址：https://github.com/zhaotbj/webrtc-tian-demo
 
 ```
 npm install
