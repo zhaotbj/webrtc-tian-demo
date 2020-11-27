@@ -1,6 +1,24 @@
 ## 学习笔记
 ## 音视频WebRTC实时互动直播技术入门与实战
 git地址：https://gitee.com/zhaotbj/webrtc-tian-demo
+
+```
+npm install
+
+node app.js // 默认端口https://localhost:3000
+全局安装nodemon 用 nodemon app.js // 热更新启动
+node启动的是https 可以掉起本地获取摄像头权限
+
+浏览器输入https://localhost:3000
+
+https://localhost:3000/ 获取音视频设备信息
+https://localhost:3000/room 完整项目 展示本地流 连接远程流
+https://localhost:3000/mediastream 
+
+```
+
+![](/assets/demo.png)
+![](/assets/demo1.png)
 > WebRTC 主要提供了三个核心的 API：
 
 - getUserMedia：可以获取本地的媒体流，一个流包含几个轨道，比如视频和音频轨道。
