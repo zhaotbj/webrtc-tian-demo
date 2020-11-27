@@ -208,16 +208,16 @@ function createPeerConnecion() {
     // 远端走ontrack
     pc.ontrack = (e) => {
       // 设置给远端 显示远端流
-      // remoteVideo.srcObject = e.streams[0];
-      console.log('远端流',e);
-        let video = document.createElement('video');
-            video.controls = true;
-            video.autoplay = 'autoplay';
-            video.srcObject = e.streams[0];
-            // video.id = v.ele;
-            video.className = 'col-md-4';
-            console.log('-createElement--', video);
-            remotevideoBox.append(video);
+      remoteVideo.srcObject = e.streams[0];
+      console.log('远端流',e, 'localStream',localStream);
+        // let video = document.createElement('video');
+            // video.controls = true;
+            // video.autoplay = 'autoplay';
+            // video.srcObject = e.streams[0];
+            // // video.id = v.ele;
+            // video.className = 'col-md-4';
+            // console.log('-createElement--', video);
+            // remotevideoBox.append(video);
     }
   }
 
@@ -225,7 +225,7 @@ function createPeerConnecion() {
   if (localStream) {
     localStream.getTracks().forEach((track) => {
       // 
-      console.log('加到pc中音频和视频的媒体流');
+      console.log('加到pc中音频和视频的媒体流',track);
       pc.addTrack(track);
     })
   }
